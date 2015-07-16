@@ -1,0 +1,75 @@
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -e
+
+autoload -Uz compinit && compinit
+autoload colors && colors
+autoload -Uz vcs_info
+source ~/.dotfiles/zsh/spectrum.zsh
+
+zstyle ':vcs_info:*' enable git svn
+precmd() {
+    vcs_info
+}
+
+local name="$FG[114]%n$FX[reset]"
+local host="$FG[117]%m$FX[reset]"
+local time="$FG[215]%*$FX[reset]"
+local dir="$FG[105]%~$FX[reset]"
+
+local last="%(?..$FX[reset]$FG[203]%??:)"
+local hist="$FG[220]%!!$FX[reset]"
+local priv="$FG[245]%#$FX[reset]"
+
+# Use zshcontrib's vcs_info to get information about any current version control systems.
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr "$FG[082]$FX[reset]"
+zstyle ':vcs_info:*' unstagedstr "$FG[160]$FX[reset]"
+zstyle ':vcs_info:*' formats ":$FG[222]%c%u%b$FX[reset]"
+
+# Use unaliased VCS commands.
+zstyle ':vcs_info:git:*:-all-' command =git
+
+local vcsi='${vcs_info_msg_0_}'
+
+# Prompt which python version
+__pyversion () {
+    local pyenv_python_version=`pyenv version-name`
+    if [[ $pyenv_python_version -ne 'system' ]]; then
+        printf "(${pyenv_python_version})"
+    fi
+    printf ''
+}
+
+ __virtualenv_info () {
+    # Get Virtual Env
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the env name
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        # In case you don't have one activated
+        venv=''
+    fi
+    [[ -n "$venv" ]] && printf "($venv)"
+}
+
+
+local venv='$(__virtualenv_info)'
+
+PROMPT="
+${venv}${name} on ${host} ${dir}${vcsi}
+$FX[reset]"
+
+
+gitignore () {
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+        printf "Not in a git repository\n"
+        return 1
+    fi
+
+    local root_path=$(git rev-parse --show-toplevel)
+    local gitignore_url="https://raw.githubusercontent.com/github/gitignore/master/$1.gitignore"
+    curl $gitignore_url -o $root_path/.gitignore
+
+}

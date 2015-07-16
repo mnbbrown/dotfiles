@@ -1,0 +1,57 @@
+# Sample gitconfig
+#
+
+[hub]
+        protocol = https
+[user]
+        name = Matthew Brown
+        email = me@matthewbrown.io
+[credential]
+        helper = osxkeychain
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+	excludesfile = /Users/mnbbrown/.gitignore
+        editor = vim
+[apply]
+        whitespace = nowarn
+[mergetool]
+	keepBackup = false
+	prompt = false
+[difftool]
+	prompt = false
+[help]
+        autocorrect = 1
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        #
+        # Setting to git 2.0 default to surpress warning message
+        default = simple
+[core]
+        whitespace = trailing-space,space-before-tab
+        precomposeunicode = true
+[apply]
+        whitespace = fix
+[url "https://github.com/"]
+        insteadOf = "gh:"
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[merge]
+	tool = bc3
+
+[alias]
+lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg = !"git lg1"
+[mergetool "p4merge"]
+	path = /usr/local/bin/p4merge
+[diff]
+	tool = bc3
