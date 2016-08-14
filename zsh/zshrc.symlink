@@ -46,12 +46,15 @@ done
 
 unset config_files
 
-
-# The next line updates PATH for the Google Cloud SDK.
+# Google Cloud SDK.
 source '/Users/mnbbrown/google-cloud-sdk/path.zsh.inc'
-
-# The next line enables bash completion for gcloud.
 source '/Users/mnbbrown/google-cloud-sdk/completion.zsh.inc'
+
+alias vim='nvim'
+alias vi='nvim'
+alias :e='nvim'
+alias :E='nvim .'
+alias :q='exit'
 
 # Proper locale
 : ${LANG:="en_US.UTF-8"}
@@ -59,3 +62,4 @@ source '/Users/mnbbrown/google-cloud-sdk/completion.zsh.inc'
 : ${LC_CTYPE:="en_US.UTF-8"}
 : ${LC_ALL:="en_US.UTF-8"}
 export LANG LANGUAGE LC_CTYPE LC_ALL
+export DYLD_FORCE_FLAT_NAMESPACE=1

@@ -8,6 +8,13 @@ autoload colors && colors
 autoload -Uz vcs_info
 source ~/.dotfiles/zsh/spectrum.zsh
 
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
+
 zstyle ':vcs_info:*' enable git svn
 precmd() {
     vcs_info
@@ -33,34 +40,9 @@ zstyle ':vcs_info:git:*:-all-' command =git
 
 local vcsi='${vcs_info_msg_0_}'
 
-# Prompt which python version
-__pyversion () {
-    local pyenv_python_version=`pyenv version-name`
-    if [[ $pyenv_python_version -ne 'system' ]]; then
-        printf "(${pyenv_python_version})"
-    fi
-    printf ''
-}
-
- __virtualenv_info () {
-    # Get Virtual Env
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        # Strip out the path and just leave the env name
-        venv="${VIRTUAL_ENV##*/}"
-    else
-        # In case you don't have one activated
-        venv=''
-    fi
-    [[ -n "$venv" ]] && printf "($venv)"
-}
-
-
-local venv='$(__virtualenv_info)'
-
 PROMPT="
-${venv}${name} on ${host} ${dir}${vcsi}
+${name} on ${host} ${dir}${vcsi}
 $FX[reset]"
-
 
 gitignore () {
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
@@ -71,5 +53,4 @@ gitignore () {
     local root_path=$(git rev-parse --show-toplevel)
     local gitignore_url="https://raw.githubusercontent.com/github/gitignore/master/$1.gitignore"
     curl $gitignore_url -o $root_path/.gitignore
-
 }
