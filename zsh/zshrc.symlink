@@ -18,6 +18,7 @@ fi
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
 
+
 # load everything but the path and completion files
 #set -x
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
@@ -46,16 +47,11 @@ done
 
 unset config_files
 
-# Google Cloud SDK.
-source '/Users/mnbbrown/google-cloud-sdk/path.zsh.inc'
-source '/Users/mnbbrown/google-cloud-sdk/completion.zsh.inc'
-
-alias vim='nvim'
-alias vi='nvim'
 alias :e='nvim'
 alias :E='nvim .'
 alias :q='exit'
-
+alias vi='nvim'
+alias vim='nvim'
 # Proper locale
 : ${LANG:="en_US.UTF-8"}
 : ${LANGUAGE:="en"}
@@ -63,3 +59,4 @@ alias :q='exit'
 : ${LC_ALL:="en_US.UTF-8"}
 export LANG LANGUAGE LC_CTYPE LC_ALL
 export DYLD_FORCE_FLAT_NAMESPACE=1
+export PATH="$PATH:/Users/mnbbrown/miniconda3/bin:/usr/local/Cellar/node/7.2.1/bin"

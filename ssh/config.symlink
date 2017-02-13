@@ -1,0 +1,20 @@
+Host *
+  ServerAliveInterval 60
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  ControlMaster auto
+  ControlPath /tmp/%r@%h:%p
+
+Host *.syd.mri.ai
+  ForwardAgent yes
+  ProxyCommand ssh syd.mri.ai nc %h %p
+
+Host *.us1.mri.ai
+  ForwardAgent yes
+  ProxyCommand ssh us1.mri.ai nc %h %p
+
+Host 10.*
+  ForwardAgent yes
+
+Host vpn*
+  User vyos

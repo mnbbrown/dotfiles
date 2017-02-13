@@ -1,0 +1,92 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+let g:vim_home_path = '~/.vim'
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'gmarik/Vundle.vim'
+Plug 'vimwiki/vimwiki'
+
+" Language plugins
+Plug 'fatih/vim-go'
+Plug 'cespare/vim-toml'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'saltstack/salt-vim'
+Plug 'elzr/vim-json'
+Plug 'mattn/emmet-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'derekwyatt/vim-scala'
+Plug 'chrisbra/csv.vim'
+Plug 'benekastah/neomake'
+Plug 'hashivim/vim-terraform'
+
+" Other
+Plug 'heavenshell/vim-jsdoc'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'itchyny/lightline.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'rizzatti/dash.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'mhinz/vim-signify'
+Plug 'vim-scripts/gitignore'
+Plug 'godlygeek/tabular'
+Plug 'mhinz/vim-startify'
+Plug 'jiangmiao/auto-pairs'
+Plug 'mnbbrown/mnbbrown.vim'
+Plug 'ap/vim-css-color'
+Plug 'gregsexton/MatchTag'
+Plug 'honza/vim-snippets'
+Plug 'reedes/vim-pencil'
+Plug 'junegunn/goyo.vim'
+call plug#end()
+
+filetype plugin indent on
+
+if filereadable(expand(g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'))
+  execute 'source ' . g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'
+endif
+
+au BufNewFile,BufRead *.ejs set filetype=html
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=236
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey   ctermbg=237
+let colorcolumn=80
+let indent_guides_auto_colors = 0
+let indent_guides_color_change_percent = 10
+let indent_guides_guide_size = 2
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,php EmmetInstall
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/](\.(git|hg|svn|sass-cache|scss-cache)|\_site|Godeps|node_modules|__build__|__dist__)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|pyc|swp)$',
+  \}
+set noshowmode
+let g:ctrlp_working_path_mode = 'r'
+let g:neomake_open_list = 2
+autocmd! BufWritePost * Neomake
+let g:neomake_warning_sign = {
+  \ 'text': 'W',
+  \ 'texthl': 'WarningMsg',
+  \ }
+let g:neomake_error_sign = {
+  \ 'text': 'E',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+let g:vimwiki_list = [{'path': '~/Code/maxwell/knowledge-base',
+                       \ 'syntax': 'markdown', 'ext': '.md', 'index': 'README'}]
+let g:vimwiki_dir_link = 'README'
+if filereadable('~/.vim/local.vim')
+  so ~/.vim/local.vim
+endif
