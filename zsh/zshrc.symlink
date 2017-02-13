@@ -47,11 +47,6 @@ done
 
 unset config_files
 
-alias :e='nvim'
-alias :E='nvim .'
-alias :q='exit'
-alias vi='nvim'
-alias vim='nvim'
 # Proper locale
 : ${LANG:="en_US.UTF-8"}
 : ${LANGUAGE:="en"}
@@ -59,4 +54,3 @@ alias vim='nvim'
 : ${LC_ALL:="en_US.UTF-8"}
 export LANG LANGUAGE LC_CTYPE LC_ALL
 export DYLD_FORCE_FLAT_NAMESPACE=1
-export PATH="$PATH:/Users/mnbbrown/miniconda3/bin:/usr/local/Cellar/node/7.2.1/bin"
