@@ -21,7 +21,11 @@ precmd() {
 }
 
 local name="$FG[114]%n$FX[reset]"
-local host="$FG[117]%m$FX[reset]"
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    local host="$FG[117]%m$FX[reset] $FG[214](SSH)$[reset]"
+else
+    local host="$FG[117]%m$FX[reset]"
+fi
 local time="$FG[215]%*$FX[reset]"
 local dir="$FG[105]%~$FX[reset]"
 
