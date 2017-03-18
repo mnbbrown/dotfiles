@@ -141,7 +141,7 @@ install_dotfiles
 if test ! $(which brew)
 then
   echo "  Installing Homebrew for you."
-  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" > /tmp/homebrew-install.log
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee /tmp/homebrew-install.log
 fi
 
 # Install core CLI utilities and zsh shell.
@@ -155,7 +155,7 @@ fi
 brew install caskroom/cask/brew-cask
 
 # Install useful native apps.
-brew cask install dropbox iterm2 virtualbox vagrant the-unarchiver vlc google-chrome skype transmission cloudapp sourcetree
+brew cask install google-drive iterm2 the-unarchiver vlc skype transmission
 
 # quick look plugins - https://github.com/sindresorhus/quick-look-plugins
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
