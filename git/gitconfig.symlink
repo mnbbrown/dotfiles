@@ -6,7 +6,7 @@
 [user]
 	name = Matthew Brown
 	email = me@matthewbrown.io
-	signingkey = 43E11D57
+  #signingkey = 43E11D57
 [credential]
   helper = osxkeychain
 [color]
@@ -66,4 +66,4 @@
 [ghi]
   token = !security find-internet-password -a mnbbrown -s github.com -l 'ghi token' -w
 [commit]
-	gpgsign = true
+  #gpgsign = true
