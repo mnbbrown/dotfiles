@@ -54,3 +54,11 @@ unset config_files
 : ${LC_ALL:="en_US.UTF-8"}
 export LANG LANGUAGE LC_CTYPE LC_ALL
 export DYLD_FORCE_FLAT_NAMESPACE=1
+
+# added by travis gem
+[ -f /Users/mnbbrown/.travis/travis.sh ] && source /Users/mnbbrown/.travis/travis.sh
+alias vi=nvim
+alias vim=nvim
+export NVM_DIR="$HOME/.nvm"
+
+export PATH=$PATH:$HOME/bin:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin

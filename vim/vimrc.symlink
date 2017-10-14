@@ -10,7 +10,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'gmarik/Vundle.vim'
 Plug 'vimwiki/vimwiki'
 
 " Language plugins
@@ -25,8 +24,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'derekwyatt/vim-scala'
 Plug 'chrisbra/csv.vim'
-Plug 'benekastah/neomake'
 Plug 'hashivim/vim-terraform'
+Plug 'leafgarland/typescript-vim'
+Plug 'amadeus/vim-mjml'
 
 " Other
 Plug 'heavenshell/vim-jsdoc'
@@ -45,9 +45,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mnbbrown/mnbbrown.vim'
 Plug 'ap/vim-css-color'
 Plug 'gregsexton/MatchTag'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/goyo.vim'
+Plug 'christianrondeau/vim-base64', { 'branch': 'master'  }
+Plug 'w0rp/ale'
 call plug#end()
 
 filetype plugin indent on
@@ -56,6 +59,8 @@ if filereadable(expand(g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'))
   execute 'source ' . g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'
 endif
 
+let g:python2_host_prog = '/usr/local/conda/envs/neovim2/bin/python'
+let g:python3_host_prog = '/usr/local/conda/envs/neovim3/bin/python'
 au BufNewFile,BufRead *.ejs set filetype=html
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=236
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey   ctermbg=237
@@ -69,25 +74,22 @@ autocmd FileType html,css,php EmmetInstall
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.(git|hg|svn|sass-cache|scss-cache)|\_site|Godeps|node_modules|__build__|__dist__)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|pyc|swp)$',
-  \}
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|test$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$',
+    \ }
 set noshowmode
 let g:ctrlp_working_path_mode = 'r'
-let g:neomake_open_list = 2
-let g:neomake_python_enable_makers = ['flake8']
-autocmd! BufWritePost * Neomake
-let g:neomake_warning_sign = {
-  \ 'text': 'W',
-  \ 'texthl': 'WarningMsg',
-  \ }
-let g:neomake_error_sign = {
-  \ 'text': 'E',
-  \ 'texthl': 'ErrorMsg',
-  \ }
 let g:vimwiki_list = [{'path': '~/Code/maxwell/knowledge-base',
                        \ 'syntax': 'markdown', 'ext': '.md', 'index': 'README'}]
 let g:vimwiki_dir_link = 'README'
 if filereadable('~/.vim/local.vim')
   so ~/.vim/local.vim
 endif
+
+set clipboard=unnamed
+let g:ale_open_list = 1
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['prettier']
+let g:ale_fixers.python = ['yapf']
+let g:UltiSnipsExpandTrigger="<tab>"

@@ -9,4 +9,3 @@ gocd() {
 # Recursively search $1 for files containing $2
 s() { egrep -rnw $1 -e $2 }
 
-alias ls="ls -lah"
