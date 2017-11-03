@@ -17,39 +17,26 @@ Plug 'fatih/vim-go'
 Plug 'cespare/vim-toml'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
-Plug 'saltstack/salt-vim'
-Plug 'elzr/vim-json'
-Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'derekwyatt/vim-scala'
-Plug 'chrisbra/csv.vim'
-Plug 'hashivim/vim-terraform'
-Plug 'leafgarland/typescript-vim'
-Plug 'amadeus/vim-mjml'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Other
-Plug 'heavenshell/vim-jsdoc'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rizzatti/dash.vim'
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'
-Plug 'vim-scripts/gitignore'
 Plug 'godlygeek/tabular'
 Plug 'mhinz/vim-startify'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mnbbrown/mnbbrown.vim'
 Plug 'ap/vim-css-color'
 Plug 'gregsexton/MatchTag'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'reedes/vim-pencil'
-Plug 'junegunn/goyo.vim'
-Plug 'christianrondeau/vim-base64', { 'branch': 'master'  }
 Plug 'w0rp/ale'
 call plug#end()
 
@@ -58,6 +45,9 @@ filetype plugin indent on
 if filereadable(expand(g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'))
   execute 'source ' . g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'
 endif
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+nnoremap <C-p> :Files<CR>
 
 let g:python2_host_prog = '/usr/local/conda/envs/neovim2/bin/python'
 let g:python3_host_prog = '/usr/local/conda/envs/neovim3/bin/python'
@@ -69,16 +59,7 @@ let indent_guides_auto_colors = 0
 let indent_guides_color_change_percent = 10
 let indent_guides_guide_size = 2
 
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,php EmmetInstall
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|test$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$',
-    \ }
 set noshowmode
-let g:ctrlp_working_path_mode = 'r'
 let g:vimwiki_list = [{'path': '~/Code/maxwell/knowledge-base',
                        \ 'syntax': 'markdown', 'ext': '.md', 'index': 'README'}]
 let g:vimwiki_dir_link = 'README'

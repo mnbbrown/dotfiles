@@ -5,7 +5,7 @@
   protocol = https
 [user]
 	name = Matthew Brown
-	email = me@matthewbrown.io
+	email = matt@maxwellmri.com
   #signingkey = 43E11D57
 [credential]
   helper = osxkeychain
@@ -51,10 +51,10 @@
 [url "https://github.com/"]
   insteadOf = "gh:"
 [difftool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
 [mergetool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [alias]
