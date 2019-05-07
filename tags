@@ -1,0 +1,17 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+check_web	bootstrap.sh	/^check_web () {$/;"	f
+fail	bootstrap.sh	/^fail () {$/;"	f
+gocd	zsh/functions.zsh	/^gocd() {$/;"	f
+info	bootstrap.sh	/^info () {$/;"	f
+install_dotfiles	bootstrap.sh	/^install_dotfiles () {$/;"	f
+link_files	bootstrap.sh	/^link_files () {$/;"	f
+pdfc	zsh/functions.zsh	/^pdfc() {$/;"	f
+s	zsh/functions.zsh	/^s() { egrep -rnw $1 -e $2 }$/;"	f
+setup_gitconfig	bootstrap.sh	/^setup_gitconfig () {$/;"	f
+success	bootstrap.sh	/^success () {$/;"	f
+user	bootstrap.sh	/^user () {$/;"	f

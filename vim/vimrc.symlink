@@ -1,3 +1,4 @@
+set termguicolors
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -11,8 +12,10 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Language plugins
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'fatih/vim-go'
 Plug 'cespare/vim-toml'
 Plug 'hail2u/vim-css3-syntax'
@@ -21,8 +24,21 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'udalov/kotlin-vim'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'tomlion/vim-solidity'
+Plug 'lepture/vim-jinja'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.tsx' }
+Plug 'hashivim/vim-terraform'
+Plug 'vim-scripts/dbext.vim'
+"
 
 " Other
+Plug 'hzchirs/vim-material'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
@@ -35,9 +51,15 @@ Plug 'godlygeek/tabular'
 Plug 'mhinz/vim-startify'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mnbbrown/mnbbrown.vim'
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'gregsexton/MatchTag'
 Plug 'w0rp/ale'
+Plug 'epilande/vim-react-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
+Plug 'Shougo/echodoc.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -46,12 +68,19 @@ if filereadable(expand(g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'))
   execute 'source ' . g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'
 endif
 
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-nnoremap <C-p> :Files<CR>
+let g:material_style='oceanic'
+set background=dark
+colorscheme vim-material
 
+let $FZF_DEFAULT_COMMAND = 'fd --type f -H --exclude .git'
+nnoremap <C-p> :Files<CR>
+nnoremap <F5> :GundoToggle<CR>
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+
+set cmdheight=2
 let g:python2_host_prog = '/usr/local/conda/envs/neovim2/bin/python'
 let g:python3_host_prog = '/usr/local/conda/envs/neovim3/bin/python'
-au BufNewFile,BufRead *.ejs set filetype=html
+let g:deoplete#enable_at_startup = 1
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=236
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey   ctermbg=237
 let colorcolumn=80
@@ -60,17 +89,62 @@ let indent_guides_color_change_percent = 10
 let indent_guides_guide_size = 2
 
 set noshowmode
-let g:vimwiki_list = [{'path': '~/Code/maxwell/knowledge-base',
-                       \ 'syntax': 'markdown', 'ext': '.md', 'index': 'README'}]
-let g:vimwiki_dir_link = 'README'
 if filereadable('~/.vim/local.vim')
   so ~/.vim/local.vim
 endif
 
 set clipboard=unnamed
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_fix_on_save = 1
-let g:ale_fixers = {}
-let g:ale_fixers.javascript = ['prettier']
+let g:vim_markdown_folding_disabled = 1
+
+let g:UltiSnipsExpandTrigger           = '<tab>'
+let g:UltiSnipsListSnippets = "<c-tab>"
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#sources#go#gocode_binary = '/Users/mnbbrown/Code/go/bin/gocode'
+set completeopt-=preview
+
+" Golang
+au FileType go set noexpandtab
+au FileType go set shiftwidth=4
+au FileType go set softtabstop=4
+au FileType go set tabstop=4
+
+let g:go_fmt_fail_silently = 1
+let g:go_term_enabled = 1
+
+" JavaScript
+au BufNewFile,BufRead *.ejs set filetype=html
+au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm,*.njk set ft=jinja
+let g:jsx_ext_required = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_history_log_output = 1
+let g:ale_javascript_eslint_suppress_missing_config = 1
+let g:ale_linter_aliases = {'javascript': 'typescript'}
+let g:ale_linters = {
+    \ 'javascript': ['tsserver'],
+    \ 'javascript.jsx': ['tsserver'],
+    \ 'typescript': ['tsserver'],
+    \ 'typescript.jsx': ['tsserver'],
+\}
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'eslint'],
+\   'javascript.jsx': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
+\   'typescript.tsx': ['prettier', 'eslint'],
+\}
+
+" let g:ale_fixers = {
+" \   'javascript': ['eslint', 'tslint'],
+" \   'javascript.jsx': ['eslint', 'tslint'],
+" \   'typescript': ['eslint', 'tslint'],
+" \   'typescript.tsx': ['eslint', 'tslint'],
+" \}
+
+" Python
 let g:ale_fixers.python = ['yapf']
-let g:UltiSnipsExpandTrigger="<tab>"

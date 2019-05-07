@@ -18,7 +18,6 @@ fi
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
 
-
 # load everything but the path and completion files
 #set -x
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
@@ -37,7 +36,10 @@ done
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
-compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
@@ -56,7 +58,6 @@ export LANG LANGUAGE LC_CTYPE LC_ALL
 export DYLD_FORCE_FLAT_NAMESPACE=1
 
 # added by travis gem
-[ -f /Users/mnbbrown/.travis/travis.sh ] && source /Users/mnbbrown/.travis/travis.sh
 alias vi=nvim
 alias vim=nvim
 export NVM_DIR="$HOME/.nvm"
@@ -64,3 +65,33 @@ export NVM_DIR="$HOME/.nvm"
 export PATH=$PATH:$HOME/bin:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/flex/bin:$PATH"
+export PATH="/usr/local/opt/bison/bin:$PATH"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="/usr/local/opt/node@8/bin:$PATH"
+
+ # setting common options
+  alias cp='cp -iv'
+  alias mv='mv -iv'
+  alias rmdir='rmdir -v'
+  alias ln='ln -v'
+  alias grep='grep --color=auto'
+
+  # shortcuts
+  alias e=vim
+  alias music=ncmpcpp
+  alias g='git status'
+  alias gp='git push'
+  alias gck='git checkout'
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/mnbbrown/Code/dashline/visadash-portal-monorepo/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/mnbbrown/Code/dashline/visadash-portal-monorepo/node_modules/tabtab/.completions/slss.zsh

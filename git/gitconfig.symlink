@@ -5,7 +5,7 @@
   protocol = https
 [user]
 	name = Matthew Brown
-	email = matt@maxwellmri.com
+	email = me@matthewbrown.io
   #signingkey = 43E11D57
 [credential]
   helper = osxkeychain
@@ -67,3 +67,8 @@
   token = !security find-internet-password -a mnbbrown -s github.com -l 'ghi token' -w
 [commit]
   #gpgsign = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
