@@ -55,7 +55,6 @@ unset config_files
 : ${LC_CTYPE:="en_US.UTF-8"}
 : ${LC_ALL:="en_US.UTF-8"}
 export LANG LANGUAGE LC_CTYPE LC_ALL
-export DYLD_FORCE_FLAT_NAMESPACE=1
 
 # added by travis gem
 alias vi=nvim
@@ -70,28 +69,45 @@ export PATH="/usr/local/opt/bison/bin:$PATH"
 export PATH="/usr/local/opt/gettext/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
+export PATH="/Users/brown_matt/Library/Python/3.6/bin:$PATH"
+export PATH="/Users/brown_matt/.local/bin/:$PATH"
 
- # setting common options
-  alias cp='cp -iv'
-  alias mv='mv -iv'
-  alias rmdir='rmdir -v'
-  alias ln='ln -v'
-  alias grep='grep --color=auto'
+# setting common options
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias ln='ln -v'
+alias grep='grep --color=auto'
 
-  # shortcuts
-  alias e=vim
-  alias music=ncmpcpp
-  alias g='git status'
-  alias gp='git push'
-  alias gck='git checkout'
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# shortcuts
+alias e=vim
+alias music=ncmpcpp
+alias g='git status'
+alias gp='git push'
+alias gck='git checkout'
 
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/mnbbrown/Code/dashline/visadash-portal-monorepo/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/mnbbrown/Code/dashline/visadash-portal-monorepo/node_modules/tabtab/.completions/slss.zsh
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+eval "$(direnv hook zsh)"
+eval "$(pyenv init -)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+export PIPENV_MAX_DEPTH=10
+eval $(thefuck --alias)
+export PATH="$HOME/.fastlane/bin:$PATH"
+source $HOME/.cargo/env
+export PATH="/usr/local/opt/libressl/bin:/usr/local/opt/llvm/bin/:$PATH"
+export LDFLAGS="-L/usr/local/opt/libressl/lib"
+export CPPFLAGS="-I/usr/local/opt/libressl/include"
+
+alias go="nocorrect go"
+alias make="nocorrect make"
+alias ls="exa"
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools

@@ -5,17 +5,17 @@
   protocol = https
 [user]
 	name = Matthew Brown
-	email = me@matthewbrown.io
+	email = matt.brown@bcgdv.com
   #signingkey = 43E11D57
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
 [color]
   diff = auto
   status = auto
   branch = auto
   ui = auto
 [core]
-	excludesfile = /Users/mnbbrown/.gitignore
+	excludesfile = ~/.gitignore_global
   editor = vim
 [apply]
   whitespace = nowarn
@@ -48,21 +48,17 @@
   precomposeunicode = true
 [apply]
   whitespace = fix
-[url "https://github.com/"]
-  insteadOf = "gh:"
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [alias]
   lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 
-[github]
-  user = mnbbrown
 [ghi]
   token = !security find-internet-password -a mnbbrown -s github.com -l 'ghi token' -w
 [commit]
@@ -72,3 +68,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[rerere]
+	enabled = 1

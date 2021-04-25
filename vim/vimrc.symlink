@@ -15,28 +15,27 @@ Plug 'vimwiki/vimwiki'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Language plugins
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'cespare/vim-toml'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'yuezk/vim-js'                                    " JavaScript support
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'udalov/kotlin-vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'tomlion/vim-solidity'
 Plug 'lepture/vim-jinja'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.tsx' }
 Plug 'hashivim/vim-terraform'
-Plug 'vim-scripts/dbext.vim'
+Plug 'darfink/vim-plist'
 "
 
 " Other
-Plug 'hzchirs/vim-material'
+Plug 'mattn/emmet-vim'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -53,13 +52,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mnbbrown/mnbbrown.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'gregsexton/MatchTag'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'epilande/vim-react-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
-Plug 'Shougo/echodoc.vim'
+Plug 'tpope/vim-abolish'
 call plug#end()
 
 filetype plugin indent on
@@ -68,25 +63,25 @@ if filereadable(expand(g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'))
   execute 'source ' . g:vim_home_path . '/bundle/mnbbrown.vim/vimrc.vim'
 endif
 
-let g:material_style='oceanic'
+set cmdheight=2
+set updatetime=300
 set background=dark
-colorscheme vim-material
 
+" Fuzzy seartch
 let $FZF_DEFAULT_COMMAND = 'fd --type f -H --exclude .git'
 nnoremap <C-p> :Files<CR>
-nnoremap <F5> :GundoToggle<CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 
-set cmdheight=2
-let g:python2_host_prog = '/usr/local/conda/envs/neovim2/bin/python'
-let g:python3_host_prog = '/usr/local/conda/envs/neovim3/bin/python'
-let g:deoplete#enable_at_startup = 1
+" general
+let g:python_host_prog = '/Users/brown_matt/.pyenv/versions/python2-neovim/bin/python'
+let g:python3_host_prog = '/Users/brown_matt/.pyenv/versions/python3-neovim/bin/python'
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=236
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey   ctermbg=237
 let colorcolumn=80
 let indent_guides_auto_colors = 0
 let indent_guides_color_change_percent = 10
 let indent_guides_guide_size = 2
+let g:localvimrc_sandbox = 0
 
 set noshowmode
 if filereadable('~/.vim/local.vim')
@@ -94,57 +89,92 @@ if filereadable('~/.vim/local.vim')
 endif
 
 set clipboard=unnamed
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list = 1
-let g:ale_fix_on_save = 1
-let g:vim_markdown_folding_disabled = 1
-
-let g:UltiSnipsExpandTrigger           = '<tab>'
-let g:UltiSnipsListSnippets = "<c-tab>"
-let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#sources#go#gocode_binary = '/Users/mnbbrown/Code/go/bin/gocode'
 set completeopt-=preview
 
-" Golang
-au FileType go set noexpandtab
-au FileType go set shiftwidth=4
-au FileType go set softtabstop=4
-au FileType go set tabstop=4
+let g:vim_markdown_folding_disabled = 1
 
-let g:go_fmt_fail_silently = 1
-let g:go_term_enabled = 1
+" Ruby
+autocmd BufNewFile,BufRead Fastfile set filetype=ruby
 
 " JavaScript
 au BufNewFile,BufRead *.ejs set filetype=html
 au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm,*.njk set ft=jinja
 let g:jsx_ext_required = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_history_log_output = 1
-let g:ale_javascript_eslint_suppress_missing_config = 1
-let g:ale_linter_aliases = {'javascript': 'typescript'}
-let g:ale_linters = {
-    \ 'javascript': ['tsserver'],
-    \ 'javascript.jsx': ['tsserver'],
-    \ 'typescript': ['tsserver'],
-    \ 'typescript.jsx': ['tsserver'],
-\}
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   'javascript.jsx': ['prettier', 'eslint'],
-\   'typescript': ['prettier', 'eslint'],
-\   'typescript.tsx': ['prettier', 'eslint'],
-\}
 
+" ALE linting and fixing
+" let g:ale_set_loclist = 0
+" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_open_list = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_python_auto_pipenv = 1
+" let g:ale_disable_lsp = 1
+" let g:ale_history_log_output = 1
+" let g:ale_completion_enabled = 0
+" " let g:ale_javascript_eslint_suppress_missing_config = 1
+" let g:ale_linters = {
+"     \ 'cpp': ['clangd'],
+"     \ 'javascript': ['eslint'],
+"     \ 'javascript.jsx': ['eslint'],
+"     \ 'typescript': ['eslint'],
+"     \ 'typescript.jsx': ['eslint'],
+"     \ 'terraform': ['terraform'],
+"     \ 'python': ['flake8'],
+"     \ 'go': ['gofmt'],
+"     \ 'rust': ['rustfmt']
+" \}
 " let g:ale_fixers = {
-" \   'javascript': ['eslint', 'tslint'],
-" \   'javascript.jsx': ['eslint', 'tslint'],
-" \   'typescript': ['eslint', 'tslint'],
-" \   'typescript.tsx': ['eslint', 'tslint'],
+" \   'cpp': ['clang-format'],
+" \   'javascript': ['eslint'],
+" \   'javascript.jsx': ['eslint'],
+" \   'typescript': ['eslint'],
+" \   'typescript.tsx': ['eslint'],
+" \   'terraform': ['terraform'],
+" \   'python': ['black', 'isort'],
+" \   'rust': ['rustfmt']
 " \}
 
-" Python
-let g:ale_fixers.python = ['yapf']
+" let g:ale_fix_on_save = 1
+
+" coc.vim
+let g:coc_enable_locationlist = 0
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <leader>rn <Plug>(coc-rename)
+
+call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
+
+" Golang
+let g:go_code_completion_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_template_autocreate = 0
+let g:go_metalinter_enabled = ['deadcode', 'errcheck', 'gosimple', 'govet', 'ineffassign', 'staticcheck', 'structcheck', 'typecheck', 'unused', 'varcheck']
+au FileType go set noexpandtab
+au FileType go set shiftwidth=4
+au FileType go set softtabstop=4
+au FileType go set tabstop=4
+
+au InsertLeave * set nopaste

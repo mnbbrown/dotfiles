@@ -150,7 +150,7 @@ then
   brew install grc coreutils spark z ack git zsh hg
 fi
 
-if [ -n $SHELL ] && [[ $SHELL = "/usr/local/bin/zsh" ]];
+if [ -n $SHELL ] && [[ $SHELL != "/usr/local/bin/zsh" ]];
 then
 chsh -s /usr/local/bin/zsh
 fi
