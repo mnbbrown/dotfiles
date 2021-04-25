@@ -143,26 +143,3 @@ then
   echo "  Installing Homebrew for you."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee /tmp/homebrew-install.log
 fi
-
-# Install core CLI utilities and zsh shell.
-if [ "$(uname -s)" == "Darwin" ]
-then
-  brew install grc coreutils spark z ack git zsh hg
-fi
-
-if [ -n $SHELL ] && [[ $SHELL != "/usr/local/bin/zsh" ]];
-then
-chsh -s /usr/local/bin/zsh
-fi
-
-if [ "$(uname -s)" == "Darwin" ]
-then
-  # Install Brew Cask project to install native apps.
-  brew install caskroom/cask/brew-cask
-
-  # Install useful native apps.
-  brew cask install google-drive iterm2 the-unarchiver vlc skype transmission
-
-  # quick look plugins - https://github.com/sindresorhus/quick-look-plugins
-  brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
-fi
