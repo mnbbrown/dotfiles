@@ -87,9 +87,8 @@ alias gck='git checkout'
 
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-#[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 eval "$(direnv hook zsh)"
 eval "$(pyenv init -)"
@@ -97,7 +96,6 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 export PIPENV_MAX_DEPTH=10
 eval $(thefuck --alias)
 export PATH="$HOME/.fastlane/bin:$PATH"
-source $HOME/.cargo/env
 export PATH="/usr/local/opt/libressl/bin:/usr/local/opt/llvm/bin/:$PATH"
 export LDFLAGS="-L/usr/local/opt/libressl/lib"
 export CPPFLAGS="-I/usr/local/opt/libressl/include"
