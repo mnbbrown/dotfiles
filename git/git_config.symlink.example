@@ -5,7 +5,7 @@
   protocol = https
 [user]
 	name = Matthew Brown
-	email = matt.brown@bcgdv.com
+	email = me@matthewbrown.io
   #signingkey = 43E11D57
 [credential]
 	helper = osxkeychain
@@ -15,7 +15,7 @@
   branch = auto
   ui = auto
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore
   editor = vim
 [apply]
   whitespace = nowarn

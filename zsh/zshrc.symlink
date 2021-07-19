@@ -85,27 +85,55 @@ alias g='git status'
 alias gp='git push'
 alias gck='git checkout'
 
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# nvm
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+fi
 
+# direnv
 eval "$(direnv hook zsh)"
-eval "$(pyenv init -)"
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-export PIPENV_MAX_DEPTH=10
+
+# pyenv
+
+if [ -d "$HOME/.pyenv" ]; then
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PATH:$PYENV_ROOT/bin"
+
+  if which pyenv > /dev/null; then
+      eval "$(pyenv init --path)" # this only sets up the path stuff
+      eval "$(pyenv init -)"      # this makes pyenv work in the shell
+      alias pyenv='nocorrect pyenv'
+  fi
+  if which pyenv-virtualenv-init > /dev/null; then
+      eval "$(pyenv virtualenv-init - zsh)"
+  fi
+fi
+
+# thefuck
 eval $(thefuck --alias)
-export PATH="$HOME/.fastlane/bin:$PATH"
-export PATH="/usr/local/opt/libressl/bin:/usr/local/opt/llvm/bin/:$PATH"
-export LDFLAGS="-L/usr/local/opt/libressl/lib"
-export CPPFLAGS="-I/usr/local/opt/libressl/include"
+
+# fastlane
+if [ -d "$HOME/fastlane" ]; then
+  export PATH="$HOME/.fastlane/bin:$PATH"
+fi
 
 alias go="nocorrect go"
 alias make="nocorrect make"
 alias ls="exa"
 
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+# Android SDK
+if [ -d "$HOME/Library/Android/sdk" ]; then
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
+
+# fly.io
+if [ -d "$HOME/.fly" ]; then
+  export FLYCTL_INSTALL="/home/mnbbrown/.fly"
+  export PATH="$FLYCTL_INSTALL/bin:$PATH"
+fi

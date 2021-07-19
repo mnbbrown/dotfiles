@@ -41,7 +41,7 @@ fail () {
 }
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.symlink ]
+  if ! [ -f git/git_config.symlink ]
   then
     info 'setup gitconfig'
 
@@ -56,7 +56,7 @@ setup_gitconfig () {
     user ' - What is your git author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/git_config.symlink.example > git/git_config.symlink
 
     success 'gitconfig'
   fi
@@ -68,15 +68,17 @@ link_files () {
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
+  info 'installing dotfiles\n'
 
-  overwrite_all=false
+  overwrite_all=true
   backup_all=false
   skip_all=false
 
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
   do
-    dest="$HOME/.`basename \"${source%.*}\"`"
+    name=`basename "${source%.*}"`
+    dest="$HOME/.${name//_/\/}"
+    mkdir -p `dirname $dest`
 
     if [ -f $dest ] || [ -d $dest ]
     then
@@ -138,8 +140,9 @@ check_web
 setup_gitconfig
 install_dotfiles
 
-if test ! $(which brew)
-then
-  echo "  Installing Homebrew for you."
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee /tmp/homebrew-install.log
+if [ "$(uname -s)" == "Darwin" ]; then
+  if test ! $(which brew); then
+    echo "  Installing Homebrew for you."
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee /tmp/homebrew-install.log
+  fi
 fi

@@ -35,6 +35,7 @@ Plug 'darfink/vim-plist'
 "
 
 " Other
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mattn/emmet-vim'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
@@ -52,7 +53,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mnbbrown/mnbbrown.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'gregsexton/MatchTag'
-" Plug 'w0rp/ale'
 Plug 'epilande/vim-react-snippets'
 Plug 'tpope/vim-abolish'
 call plug#end()
@@ -101,41 +101,6 @@ au BufNewFile,BufRead *.ejs set filetype=html
 au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm,*.njk set ft=jinja
 let g:jsx_ext_required = 0
 
-" ALE linting and fixing
-" let g:ale_set_loclist = 0
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_open_list = 0
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_python_auto_pipenv = 1
-" let g:ale_disable_lsp = 1
-" let g:ale_history_log_output = 1
-" let g:ale_completion_enabled = 0
-" " let g:ale_javascript_eslint_suppress_missing_config = 1
-" let g:ale_linters = {
-"     \ 'cpp': ['clangd'],
-"     \ 'javascript': ['eslint'],
-"     \ 'javascript.jsx': ['eslint'],
-"     \ 'typescript': ['eslint'],
-"     \ 'typescript.jsx': ['eslint'],
-"     \ 'terraform': ['terraform'],
-"     \ 'python': ['flake8'],
-"     \ 'go': ['gofmt'],
-"     \ 'rust': ['rustfmt']
-" \}
-" let g:ale_fixers = {
-" \   'cpp': ['clang-format'],
-" \   'javascript': ['eslint'],
-" \   'javascript.jsx': ['eslint'],
-" \   'typescript': ['eslint'],
-" \   'typescript.tsx': ['eslint'],
-" \   'terraform': ['terraform'],
-" \   'python': ['black', 'isort'],
-" \   'rust': ['rustfmt']
-" \}
-
-" let g:ale_fix_on_save = 1
-
 " coc.vim
 let g:coc_enable_locationlist = 0
 inoremap <silent><expr> <TAB>
@@ -178,3 +143,16 @@ au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
 au InsertLeave * set nopaste
+
+if has('nvim-0.5.0')
+
+lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    highlight = {
+      enable = true,              -- false will disable the whole extension
+    },
+}
+EOF
+
+endif
