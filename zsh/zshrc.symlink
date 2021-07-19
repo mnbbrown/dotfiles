@@ -61,16 +61,7 @@ alias vi=nvim
 alias vim=nvim
 export NVM_DIR="$HOME/.nvm"
 
-export PATH=$PATH:$HOME/bin:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/opt/flex/bin:$PATH"
-export PATH="/usr/local/opt/bison/bin:$PATH"
-export PATH="/usr/local/opt/gettext/bin:$PATH"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="/usr/local/opt/node@8/bin:$PATH"
-export PATH="/Users/brown_matt/Library/Python/3.6/bin:$PATH"
-export PATH="/Users/brown_matt/.local/bin/:$PATH"
 
 # setting common options
 alias cp='cp -iv'
@@ -85,31 +76,8 @@ alias g='git status'
 alias gp='git push'
 alias gck='git checkout'
 
-# nvm
-if [ -d "$HOME/.nvm" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-fi
-
 # direnv
 eval "$(direnv hook zsh)"
-
-# pyenv
-
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PATH:$PYENV_ROOT/bin"
-
-  if which pyenv > /dev/null; then
-      eval "$(pyenv init --path)" # this only sets up the path stuff
-      eval "$(pyenv init -)"      # this makes pyenv work in the shell
-      alias pyenv='nocorrect pyenv'
-  fi
-  if which pyenv-virtualenv-init > /dev/null; then
-      eval "$(pyenv virtualenv-init - zsh)"
-  fi
-fi
 
 # thefuck
 eval $(thefuck --alias)

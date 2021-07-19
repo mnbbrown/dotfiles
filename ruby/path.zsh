@@ -1,1 +1,3 @@
-export PATH="$RBENV_ROOT/bin:$PATH"
+#!/usr/bin/bash
+
+eval "$(rbenv init -)"

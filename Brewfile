@@ -23,7 +23,7 @@ brew "jq"
 brew "less"
 brew "mas"
 brew "memcached"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "postgresql", restart_service: true
 brew "redis"
 brew "rsync"
@@ -35,6 +35,7 @@ brew "tmux"
 brew "wget"
 brew "zsh"
 brew "python"
+brew "python3"
 brew "pyenv"
 brew "pyenv-virtualenv"
 
