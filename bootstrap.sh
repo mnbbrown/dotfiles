@@ -77,7 +77,7 @@ install_dotfiles () {
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
   do
     name=`basename "${source%.*}"`
-    dest="$HOME/.${name//_/\/}"
+    dest="$HOME/.${name//_//}"
     mkdir -p `dirname $dest`
 
     if [ -f $dest ] || [ -d $dest ]
