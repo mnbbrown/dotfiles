@@ -1,5 +1,3 @@
-# vi:syntax=yaml
-
 window:
   # Window dimensions (changes require restart)
   #
