@@ -42,6 +42,7 @@ brew "rbenv"
 brew "thefuck"
 brew "direnv"
 brew "sl"
+brew "yarn"
 
 cask "adoptopenjdk"
 cask "1password"
