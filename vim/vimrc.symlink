@@ -102,7 +102,7 @@ au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm,*.njk set ft=jinja
 let g:jsx_ext_required = 0
 
 " coc.vim
-let g:coc_enable_locationlist = 0
+let g:coc_enable_locationlist = 1
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
