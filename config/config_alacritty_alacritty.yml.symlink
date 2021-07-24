@@ -56,7 +56,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Source Code Pro
+    family: SF Mono
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -75,7 +75,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: SF Mono
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -94,7 +94,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: SF Mono
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -113,7 +113,7 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: SF Mono
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -359,6 +359,7 @@ key_bindings:
   - { key: Down,     mods: Shift,         chars: "\x1b[1;2B"                   }
   - { key: Down,     mods: Control,       chars: "\x1b[1;5B"                   }
   - { key: Down,     mods: Alt,           chars: "\x1b[1;3B"                   }
+  - { key: Key3,     mods: Alt,            chars: "#"                            }
   - { key: Down,                          chars: "\x1b[B",   mode: ~AppCursor  }
   - { key: Down,                          chars: "\x1bOB",   mode: AppCursor   }
   - { key: Tab,      mods: Shift,         chars: "\x1b[Z"                      }
