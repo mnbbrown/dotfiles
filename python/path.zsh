@@ -10,7 +10,7 @@ if [ -d "$HOME/.pyenv" ]; then
       eval "$(pyenv init -)"      # this makes pyenv work in the shell
       alias pyenv='nocorrect pyenv'
   fi
-  if which pyenv-virtualenv-init > /dev/null; then
+  if which pyenv > /dev/null; then
       eval "$(pyenv virtualenv-init - zsh)"
   fi
 fi
