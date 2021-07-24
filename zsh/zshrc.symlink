@@ -3,9 +3,26 @@ export DOTFILES=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
-fpath=("$DOTFILES/zsh/zfunctions" $fpath)
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 fpath=(/usr/local/share/zsh-completions $fpath)
+
+source $DOTFILES/zsh/antigen.zsh
+
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle bundler
+antigen bundle command-not-found
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+export NVM_LAZY_LOAD=true
+antigen bundle lukechilds/zsh-nvm
+
+# Load the theme.
+antigen theme jackharrisonsherlock/common
+
+# Tell Antigen that you're done.
+antigen apply
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -56,7 +73,7 @@ unset config_files
 : ${LC_ALL:="en_US.UTF-8"}
 export LANG LANGUAGE LC_CTYPE LC_ALL
 
-# added by travis gem
+
 alias vi=nvim
 alias vim=nvim
 export NVM_DIR="$HOME/.nvm"
