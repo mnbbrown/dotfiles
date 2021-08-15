@@ -6,16 +6,27 @@
   "signature.enable": true,
   "coc.preferences.colorSupport": true,
   "coc.preferences.formatOnSaveFiletypes": [
-    "ruby",
     "python",
-    "json"
+    "css",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "ruby",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact"
   ],
   "solargraph.hover": true,
   "solargraph.references": true,
   "solargraph.diagnostics": true,
   "solargraph.rename": true,
-  "coc.preferences.rootPatterns": [
-    ".git",
-    ".envrc"
-  ]
+  "coc.preferences.rootPatterns": [".git", ".envrc"],
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  }
 }
