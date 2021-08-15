@@ -13,7 +13,6 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle bundler
 antigen bundle command-not-found
-antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 export NVM_LAZY_LOAD=true
 antigen bundle lukechilds/zsh-nvm

@@ -6,12 +6,20 @@ if [ -d "$HOME/.pyenv" ]; then
   export PATH="$PATH:$PYENV_ROOT/bin"
 
   if which pyenv > /dev/null; then
-      eval "$(pyenv init --path)" # this only sets up the path stuff
-      eval "$(pyenv init -)"      # this makes pyenv work in the shell
+      eval "$(pyenv init - --path --no-rehash)" # this only sets up the path stuff
       alias pyenv='nocorrect pyenv'
   fi
   if which pyenv > /dev/null; then
       eval "$(pyenv virtualenv-init - zsh)"
+
+      if [[ -n $ZSH_VERSION ]]; then
+        autoload -Uz add-zsh-hook
+        add-zsh-hook -D precmd _pyenv_virtualenv_hook
+      fi
   fi
 fi
 
+
+if [ -d "$HOME/Library/Python/3.9/bin" ]; then
+  export PATH="/Users/mbrown/Library/Python/3.9/bin:$PATH"
+fi
