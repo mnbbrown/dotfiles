@@ -146,7 +146,6 @@ nmap <leader>bl :ls<CR>
 " ctrl+p fuzzy search
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 nnoremap <C-p> :Files<CR>
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
