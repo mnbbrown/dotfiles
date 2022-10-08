@@ -2,14 +2,14 @@
   "eslint.autoFixOnSave": true,
   "python.formatting.provider": "black",
   "codeLens.enable": true,
-  "suggest.enablePreview": true,
   "signature.enable": true,
-  "coc.preferences.colorSupport": true,
+  "solargraph.useBundler": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "ruby",
     "python",
     "json"
   ],
+  "solargraph.formatting": true,
   "solargraph.hover": true,
   "solargraph.references": true,
   "solargraph.diagnostics": true,

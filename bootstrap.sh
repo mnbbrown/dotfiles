@@ -137,7 +137,7 @@ install_dotfiles () {
 }
 
 check_web
-setup_gitconfig
+# setup_gitconfig
 install_dotfiles
 
 if [ "$(uname -s)" == "Darwin" ]; then

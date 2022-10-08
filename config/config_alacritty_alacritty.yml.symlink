@@ -36,7 +36,8 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode: Windowed
+  startup_mode: Maximized
+  opacity: 1
 
 scrolling:
   # maximum number of lines in the scrollback buffer. Specifying '0' will
@@ -224,9 +225,6 @@ bell:
   animation: EaseOutExpo
   color: '0xffffff'
   duration: 0
-
-# Background opacity
-background_opacity: 1.0
 
 # Key bindings
 #
