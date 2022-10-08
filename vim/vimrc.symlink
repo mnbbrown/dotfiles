@@ -61,6 +61,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.tsx' }
 Plug 'hashivim/vim-terraform'
 Plug 'darfink/vim-plist'
+Plug 'google/vim-jsonnet'
 "
 
 " Other
@@ -189,10 +190,16 @@ autocmd FileType html,css,php EmmetInstall
 " JSON
 let g:vim_json_syntax_conceal = 0
 
+" Markdown
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_fenced_languages = ['csharp=cs', "c++=cpp", 'viml=vim', 'bash=sh', 'ini=dosini', 'json=json']
 
 " Ruby
 autocmd BufNewFile,BufRead Fastfile set filetype=ruby
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 " JavaScript
 au BufNewFile,BufRead *.ejs set filetype=html
