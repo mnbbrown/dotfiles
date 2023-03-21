@@ -7,7 +7,6 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "python",
     "css",
-    "html",
     "javascript",
     "javascriptreact",
     "json",
