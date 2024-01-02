@@ -51,14 +51,15 @@ Plug 'lepture/vim-jinja'
 Plug 'hashivim/vim-terraform'
 Plug 'darfink/vim-plist'
 Plug 'google/vim-jsonnet'
-Plug 'chrismaher/vim-lookml'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'virchau13/tree-sitter-astro'
 "
 
 " Other
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sjl/gundo.vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' " nagivate git history
+Plug 'tpope/vim-rhubarb' " open fugitive files in Github UI
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
@@ -170,6 +171,7 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+nmap <silent> rr <Plug>(coc-rename)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -190,6 +192,9 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_fenced_languages = ['csharp=cs', "c++=cpp", 'viml=vim', 'bash=sh', 'ini=dosini', 'json=json']
 
+" Astro
+autocmd BufRead,BufEnter *.astro set filetype=astro
+
 " Ruby
 autocmd BufNewFile,BufRead Fastfile set filetype=ruby
 map <Leader>t :call RunCurrentSpecFile()<CR>
@@ -203,7 +208,7 @@ au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm,*.njk set ft=jinja
 let g:jsx_ext_required = 0
 
 " coc.vim
-let g:coc_node_path = '/usr/local/bin/node'
+let g:coc_node_path = '/opt/homebrew/bin/node'
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()

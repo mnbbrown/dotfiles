@@ -5,7 +5,7 @@
   protocol = https
 [user]
 	name = Matthew Brown
-	email = me@matthewbrown.io
+	email = mbrown@gocardless.com
   #signingkey = 43E11D57
 [credential]
 	helper = osxkeychain
@@ -16,7 +16,7 @@
   ui = auto
 [core]
 	excludesfile = ~/.gitignore
-  editor = vim
+  editor = nvim
 [apply]
   whitespace = nowarn
 [mergetool]
@@ -43,6 +43,8 @@
         #
         # Setting to git 2.0 default to surpress warning message
   default = simple
+	authSetupRemote = true
+	autoSetupRemote = true
 [core]
   whitespace = trailing-space,space-before-tab
   precomposeunicode = true
@@ -70,3 +72,5 @@
 	process = git-lfs filter-process
 [rerere]
 	enabled = 1
+[init]
+	defaultBranch = main

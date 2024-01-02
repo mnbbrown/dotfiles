@@ -6,27 +6,14 @@ export PROJECTS=~/Code
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-source $DOTFILES/zsh/antigen.zsh
-
-antigen bundle git
-antigen bundle heroku
-antigen bundle pip
-antigen bundle bundler
-antigen bundle command-not-found
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-# Load the theme.
-antigen theme jackharrisonsherlock/common
-
-# Tell Antigen that you're done.
-antigen apply
-
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 if [[ -a ~/.localrc ]]
 then
   source ~/.localrc
 fi
+
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # all of our zsh files
 typeset -U config_files
@@ -138,13 +125,7 @@ if [ -x "$(command -v brew)" ]; then
   fi
 fi
 
-if [ -d "$HOME/.volta" ]; then
-  export VOLTA_HOME="$HOME/.volta"
-  export PATH="$VOLTA_HOME/bin:$PATH"
-fi
-. /usr/local/opt/asdf/libexec/asdf.sh
-# . ~/.asdf/plugins/java/set-java-home.zsh
-
 export PATH="$HOME/.poetry/bin:$PATH"
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+eval "$(/usr/local/bin/rtx activate zsh)"
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES

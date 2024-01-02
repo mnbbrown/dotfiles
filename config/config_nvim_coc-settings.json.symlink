@@ -3,29 +3,100 @@
   "python.formatting.provider": "black",
   "codeLens.enable": true,
   "signature.enable": true,
-  "solargraph.useBundler": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "python",
     "css",
-    "javascript",
-    "javascriptreact",
     "json",
-    "ruby",
-    "typescript",
-    "typescript.tsx",
-    "typescriptreact"
+    "ruby"
   ],
-  "solargraph.formatting": true,
-  "solargraph.hover": true,
-  "solargraph.references": true,
-  "solargraph.diagnostics": true,
-  "solargraph.rename": true,
-  "coc.preferences.rootPatterns": [".git", ".envrc"],
+  "workspace.rootPatterns": [
+    ".git",
+    ".envrc"
+  ],
   "languageserver": {
     "go": {
+      "enable": true,
       "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+      "rootPatterns": [
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ]
+    },
+    "rubocop": {
+      "command": "bundle",
+      "args": [
+        "exec",
+        "rubocop",
+        "--lsp"
+      ],
+      "filetypes": [
+        "ruby"
+      ],
+      "rootPatterns": [
+        ".git",
+        "Gemfile"
+      ],
+      "requireRootPattern": true
+    },
+    "sorbet": {
+      "enable": true,
+      "command": "srb",
+      "args": [
+        "tc",
+        "--lsp",
+        "--enable-all-experimental-lsp-features"
+      ],
+      "filetypes": [
+        "ruby"
+      ],
+      "requireRootPattern": true,
+      "initializationOptions": {},
+      "settings": {}
+    },
+    "ruby": {
+      "enable": false,
+      "command": "ruby-lsp",
+      "initializationOptions": {
+        "experimentalFeaturesEnabled": false,
+        "enabledFeatures": [
+          "codeActions",
+          "diagnostics",
+          "documentHighlights",
+          "documentLink",
+          "documentSymbols",
+          "foldingRanges",
+          "formatting",
+          "hover",
+          "inlayHint",
+          "onTypeFormatting",
+          "selectionRanges",
+          "semanticHighlighting",
+          "completion"
+        ],
+        "formatter": "auto"
+      },
+      "filetypes": [
+        "ruby"
+      ]
+    },
+    "jsonnet": {
+      "command": "jsonnet-language-server",
+      "args": [
+        "-t"
+      ],
+      "rootPatterns": [
+        ".git/",
+        "jsonnetfile.json"
+      ],
+      "filetypes": [
+        "jsonnet",
+        "libsonnet"
+      ]
     }
   }
 }

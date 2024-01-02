@@ -5,6 +5,8 @@ bindkey -e
 
 autoload -Uz compinit && compinit
 autoload colors && colors
+
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 prompt pure
 

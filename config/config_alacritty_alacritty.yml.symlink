@@ -157,9 +157,6 @@ font:
   # following command:
   #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
   #
-  # This is a global setting and will require a log out or restart to take
-  # effect.
-  use_thin_strokes: true
 
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: false
@@ -487,18 +484,7 @@ debug:
   # Record all characters and escape sequences as test data.
   ref_test: false
 
-# Shell
-#
-# You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
-# Entries in shell.args are passed unmodified as arguments to the shell.
-shell:
-  program: /bin/zsh
-  args:
-    - -l
-    - -c
-    - -x
-    - "tmux -2 attach || tmux -2 new -s main"
 
 env:
-  TERM: screen-256color-bce
+  TERM: xterm-256color
 # vim: nospell
