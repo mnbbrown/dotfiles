@@ -39,6 +39,8 @@ window:
   startup_mode: Maximized
   opacity: 1
 
+  opacity: 1.0
+
 scrolling:
   # maximum number of lines in the scrollback buffer. Specifying '0' will
   # disable scrolling.
@@ -157,7 +159,7 @@ font:
   #
   # This is a global setting and will require a log out or restart to take
   # effect.
-  #use_thin_strokes: true
+  use_thin_strokes: true
 
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: false
@@ -165,6 +167,7 @@ draw_bold_text_with_bright_colors: false
 # Use custom cursor colors. If true, display the cursor in the cursor.foreground
 # and cursor.background colors, otherwise invert the colors of the cursor.
 custom_cursor_colors: true
+
 
 colors:
   # Default colors
@@ -493,6 +496,9 @@ shell:
   args:
     - -l
     - -c
-    - "tmux attach || tmux new -s main"
+    - -x
+    - "tmux -2 attach || tmux -2 new -s main"
 
+env:
+  TERM: screen-256color-bce
 # vim: nospell

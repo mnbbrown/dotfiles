@@ -103,6 +103,11 @@ fi
 alias go="nocorrect go"
 alias make="nocorrect make"
 alias ls="exa"
+if [ -x "$(command -v nvim)" ]; then
+  alias vi="nvim"
+  alias vim="nvim"
+  export EDITOR="nvim"
+fi
 
 # Android SDK
 if [ -d "$HOME/Library/Android/sdk" ]; then
@@ -126,10 +131,10 @@ if [ -d "$HOME/.cargo" ]; then
 fi
 
 if [ -x "$(command -v brew)" ]; then
-  dir="$(brew --prefix)/Caskroom/google-cloud-sdk"
+  dir="/usr/local/Caskroom/google-cloud-sdk"
   if [ -d "$dir" ]; then
-    source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-    source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
   fi
 fi
 
@@ -137,3 +142,9 @@ if [ -d "$HOME/.volta" ]; then
   export VOLTA_HOME="$HOME/.volta"
   export PATH="$VOLTA_HOME/bin:$PATH"
 fi
+. /usr/local/opt/asdf/libexec/asdf.sh
+# . ~/.asdf/plugins/java/set-java-home.zsh
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

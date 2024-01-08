@@ -27,4 +27,9 @@ if [ ! -d "$RBENV_ROOT/plugins/rbenv-default-gems" ]; then
   echo rubygems-bundler >> ~/.rbenv/default-gems
 fi
 
+# Install gemsets
+if [ ! -d "$RBENV_ROOT/plugins/rbenv-gemset" ]; then
+  git clone git://github.com/jf/rbenv-gemset.git $RBENV_ROOT/plugins/rbenv-gemset
+fi
+
 rbenv rehash

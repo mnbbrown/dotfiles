@@ -6,6 +6,7 @@ bindkey -e
 autoload -Uz compinit && compinit
 autoload colors && colors
 autoload -U promptinit; promptinit
+prompt pure
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
