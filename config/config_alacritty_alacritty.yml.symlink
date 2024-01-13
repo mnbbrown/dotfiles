@@ -39,7 +39,6 @@ window:
   startup_mode: Maximized
   opacity: 1
 
-  opacity: 1.0
 
 scrolling:
   # maximum number of lines in the scrollback buffer. Specifying '0' will

@@ -3,6 +3,7 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 
+brew "pure" # zsh theme
 brew "openssl"
 brew "openssl@1.1" # wget dependency
 
