@@ -2,6 +2,7 @@ set -g default-shell $SHELL
 set -g default-terminal 'tmux-256color'
 set -as terminal-overrides ",alacritty*:Tc"
 
+set -g history-limit 10000
 set -g status-bg "#000000"
 set -g status-fg "#aaaaaa"
 set -g focus-events on
@@ -16,6 +17,7 @@ bind C-Space copy-mode
 set -g update-environment -r
 setw -g monitor-activity on
 set -sg escape-time 0
+set -g set-clipboard on
 set -g mouse on
 
 unbind-key C-b

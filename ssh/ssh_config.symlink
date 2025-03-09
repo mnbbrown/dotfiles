@@ -1,9 +1,32 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
 Host *
   ServerAliveInterval 60
+  SetEnv TERM=screen-256color
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   ControlMaster auto
   ControlPath /tmp/%r@%h:%p
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
-IdentityFile ~/.ssh/id_rsa
-IdentityFile ~/.ssh/id_ed25519
+Host *.mb.io
+  ForwardX11 yes
+
+Host 10.2.21.19
+  IdentityFile ~/.ssh/gc_macbook.pub
+  IdentitiesOnly yes
+
+Host 91.107.227.95
+  IdentityFile ~/.ssh/gc_macbook.pub
+  IdentitiesOnly yes
+
+Host bruce
+  IdentityFile ~/.ssh/elyos_macbook.pub
+  IdentitiesOnly yes
+
+Host bass
+  IdentityFile ~/.ssh/gc_macbook.pub
+  IdentitiesOnly yes

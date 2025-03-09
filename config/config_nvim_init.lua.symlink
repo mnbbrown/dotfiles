@@ -94,6 +94,7 @@ lazy.opts = {}
 lazy.setup({
 	-- Theming
 	{ "tanvirtin/monokai.nvim" },
+	{ "cpea2506/one_monokai.nvim" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "alexghergh/nvim-tmux-navigation" },
 
@@ -113,6 +114,7 @@ lazy.setup({
 	{ "tpope/vim-surround" },
 	{ "wellle/targets.vim" },
 	{ "tpope/vim-repeat" },
+	{ "tpope/vim-abolish" },
 
 	-- Utilities
 	{ "nvim-lua/plenary.nvim" },
@@ -121,7 +123,14 @@ lazy.setup({
 	{ "neovim/nvim-lspconfig" },
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	{ "linux-cultist/venv-selector.nvim" },
+	{
+		"linux-cultist/venv-selector.nvim",
+		branch = "regexp",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"mfussenegger/nvim-dap",
+		},
+	},
 	{ "L3MON4D3/LuaSnip" },
 
 	-- Linting
@@ -170,6 +179,8 @@ require("nvim-treesitter.configs").setup({
 })
 
 require("monokai").setup({ palette = require("monokai").pro })
+
+-- .setup({ palette = require("monokai").pro })
 require("lualine").setup()
 require("gitsigns").setup()
 
@@ -181,12 +192,13 @@ local lint = require("lint")
 
 lint.linters_by_ft = {
 	markdown = { "vale" },
-	python = { "pylint" },
+	python = { "ruff" },
+	yaml = { "yamllint" },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
-		lint.try_lint()
+		lint.try_lint(nil, { ignore_errors = true })
 	end,
 })
 
@@ -195,31 +207,21 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
-		python = { "black" },
-		javascript = { { "prettier" } },
+		python = { "ruff_fix", "ruff_format" },
+		yaml = { "yamllint" },
+		go = { "gofmt" },
+		javascript = { "prettier" },
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
 		javascriptreact = { "prettier" },
+		terraform = { "terraform_fmt" },
+		cpp = { "clang-format" },
 	},
-	log_level = vim.log.levels.DEBUG,
-	format_on_save = {
-		-- These options will be passed to conform.format()
-		timeout_ms = 500,
-		lsp_fallback = false,
+	default_format_opts = {
+		lsp_format = "fallback",
 	},
-})
-
---- auto select virtualenv
-vim.api.nvim_create_autocmd("VimEnter", {
-	desc = "Auto select virtualenv Nvim open",
-	pattern = "*",
-	callback = function()
-		local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
-		if venv ~= "" then
-			require("venv-selector").retrieve_from_cache()
-		end
-	end,
-	once = true,
+	-- Set up format-on-save
+	format_on_save = { timeout_ms = 500 },
 })
 
 ---
@@ -305,12 +307,13 @@ local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- See :help mason-lspconfig-settings
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"tsserver",
+		"ts_ls",
 		"eslint",
 		"gopls",
 		"pyright",
 		"html",
 		"cssls",
+		"clangd",
 	},
 	-- See :help mason-lspconfig.setup_handlers()
 	handlers = {
@@ -320,12 +323,22 @@ require("mason-lspconfig").setup({
 				capabilities = lsp_capabilities,
 			})
 		end,
-		["tsserver"] = function()
-			lspconfig.tsserver.setup({
+		["ts_ls"] = function()
+			lspconfig.ts_ls.setup({
 				capabilities = lsp_capabilities,
 				settings = {
 					completions = {
 						completeFunctionCalls = true,
+					},
+				},
+			})
+		end,
+		["pyright"] = function()
+			lspconfig.pyright.setup({
+				capabilities = lsp_capabilities,
+				settings = {
+					pyright = {
+						disableOrganizeImports = true, -- Using Ruff's import organizer
 					},
 				},
 			})
@@ -369,3 +382,12 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	},
 })
+
+-- lsp diagnostics in hover
+vim.diagnostic.config({
+	virtual_text = false,
+})
+
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])

@@ -89,7 +89,6 @@ fi
 
 alias go="nocorrect go"
 alias make="nocorrect make"
-alias ls="exa"
 if [ -x "$(command -v nvim)" ]; then
   alias vi="nvim"
   alias vim="nvim"
@@ -118,14 +117,24 @@ if [ -d "$HOME/.cargo" ]; then
 fi
 
 if [ -x "$(command -v brew)" ]; then
-  dir="/usr/local/Caskroom/google-cloud-sdk"
+  dir="/opt/homebrew/Caskroom/google-cloud-sdk"
   if [ -d "$dir" ]; then
-    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
   fi
 fi
 
+export PATH="$PATH:~/.orbstack/bin"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 eval "$(/opt/homebrew/bin/mise activate zsh)"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+
+export LDFLAGS="-L/opt/homebrew/lib"
+export CPPFLAGS="-I/opt/homebrew/include"
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+alias ls="eza"
+
+. "$HOME/.local/bin/env"
